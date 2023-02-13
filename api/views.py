@@ -7,10 +7,14 @@ from rest_framework.decorators import api_view,APIView
 from rest_framework.response import Response
 from rest_framework import status,generics,mixins,viewsets
 from django.shortcuts import get_object_or_404
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 class ArticleViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = (TokenAuthentication,)
 
 # class ArticleViewSet(viewsets.GenericViewSet,mixins.ListModelMixin,mixins.CreateModelMixin,mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin):
 #     queryset = Article.objects.all()
